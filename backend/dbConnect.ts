@@ -4,8 +4,11 @@ interface DbConfig {
     host: string,
     user: string,
     password: string,
-    database: string
+    database: string,
+    port: number
 }
+
+const dbPort: number = parseInt(process.env.dbPort || '')
 
 export const dbConnect = async (): Promise<any> => {
     
@@ -13,7 +16,8 @@ export const dbConnect = async (): Promise<any> => {
         host: `${process.env.host}`,
         user: `${process.env.user}`,
         password: `${process.env.password}`,
-        database: `${process.env.database}`
+        database: `${process.env.database}`,
+        port: dbPort
     }
 
     const pool: Pool = mysql.createPool(dbConfig).promise()
